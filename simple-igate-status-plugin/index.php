@@ -160,12 +160,15 @@ class Simple_iGate_Status_Plugin
                 xhttp.onreadystatechange = function () {
                     if (this.readyState === 4 && this.status === 200) {
                         var json = JSON.parse(this.response);
+
+                        var tbody = '';
+
                         json.regions.forEach(function (region) {
                             var call_signs_from_region = json.data.filter(function (call_sign) {
                                 return call_sign.region_id === region.region_id;
                             });
 
-                            var tbody = '<tr class="sigsp_text_center">' + '<th colspan="4">' + region.title + '</th>' + '</tr>';
+                            tbody += '<tr class="sigsp_text_center">' + '<th colspan="4">' + region.title + '</th>' + '</tr>';
 
                             call_signs_from_region.forEach(function (call_sign) {
                                 var date_last_heard = +new Date(call_sign.date_last_heard.replace(" ", "T") + "Z"),
@@ -180,10 +183,10 @@ class Simple_iGate_Status_Plugin
                                 tbody += '<td>' + source + '</td>';
                                 tbody += '</tr>';
                             });
-
-                            document.getElementById('sigsp_table').innerHTML = tbody;
-                            document.getElementById('sigsp_last_update').innerHTML = "<?= __('Last update:', 'simple-igate-status-plugin'); ?> " + new Date().toLocaleString();
                         });
+
+                        document.getElementById('sigsp_table').innerHTML = tbody;
+                        document.getElementById('sigsp_last_update').innerHTML = "<?= __('Last update:', 'simple-igate-status-plugin'); ?> " + new Date().toLocaleString();
                     }
                 };
                 xhttp.send("action=sigsp_table");
