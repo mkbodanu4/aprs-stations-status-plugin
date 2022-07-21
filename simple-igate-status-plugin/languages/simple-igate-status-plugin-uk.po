@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-21 17:06+0000\n"
-"PO-Revision-Date: 2022-07-21 18:38+0000\n"
+"PO-Revision-Date: 2022-07-21 23:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: Українська\n"
 "Language: uk\n"
@@ -14,24 +14,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: index.php:177
+#: index.php:195
 msgid "Active"
 msgstr "Активний"
 
 #. Description of the plugin
+#| msgid ""
+#| "Add iGate/Digipeaters status on ARPS network to your WordPress site with "
+#| "shortcode [igate_status_table]"
 msgid ""
-"Add iGate/Digipeaters status on ARPS network to your WordPress site with "
+"Add IGate/Digipeaters status on ARPS network to your WordPress site with "
 "shortcode [igate_status_table]"
 msgstr ""
-"Додайте статус Діджіпітерів/iGate в ARPS мурежі до вашого сайту на WordPress "
+"Додайте статус Діджіпітерів/IGate в ARPS мурежі до вашого сайту на WordPress "
 "з допомогою короткого коду [igate_status_table]"
 
-#: index.php:177
+#: index.php:195
 msgid "Dead"
 msgstr "Мрець"
 
-#: index.php:131
-msgid "Digi/iGate Call Sign"
+#: index.php:144
+#, fuzzy
+#| msgid "Digi/iGate Call Sign"
+msgid "Digi/IGate Call Sign"
 msgstr "Кличний Знак"
 
 #. Author URI of the plugin
@@ -42,44 +47,51 @@ msgstr "https://diy.manko.pro"
 msgid "https://github.com/mkbodanu4/simple-igate-status-plugin"
 msgstr "https://github.com/mkbodanu4/simple-igate-status-plugin"
 
-#: index.php:134
+#: index.php:147
 msgid "Last Heard"
 msgstr "Востаннє почутий"
 
-#: index.php:183
+#: index.php:202
 msgid "Last update:"
 msgstr "Останнє оновлення:"
 
-#: index.php:126
+#: index.php:139
 msgid "Last update: Loading..."
 msgstr "Останнє оновлення: Завантаження..."
 
-#: index.php:147
+#: index.php:160
 msgid "Loading..."
 msgstr "Завантаження..."
 
-#: index.php:53
+#: index.php:54
 msgid "Plugin Settings"
 msgstr "Налаштування плагіна"
 
+#: index.php:85
+msgid "Seconds level since last activity, appropriate for active station:"
+msgstr ""
+"Кількість секунд від останньої активності, характерна активній станції:"
+
 #. Name of the plugin
+#: index.php:43
+#| msgid "Simple iGate Status Plugin"
+msgid "Simple IGate Status Plugin"
+msgstr "Simple IGate Status Plugin"
+
 #: index.php:42
-msgid "Simple iGate Status Plugin"
-msgstr "Simple iGate Status Plugin"
+#| msgid "Simple iGate Status Plugin Settings"
+msgid "Simple IGate Status Plugin Settings"
+msgstr "Налаштування Simple IGate Status Plugin"
 
-#: index.php:41
-msgid "Simple iGate Status Plugin Settings"
-msgstr "Налаштування Simple iGate Status Plugin"
-
-#: index.php:140
+#: index.php:153
 msgid "Source"
 msgstr "Джерело"
 
-#: index.php:137
+#: index.php:150
 msgid "Status"
 msgstr "Статус"
 
-#: index.php:72
+#: index.php:73
 msgid "Table header:"
 msgstr "Заголовок таблиці:"
 
@@ -87,7 +99,8 @@ msgstr "Заголовок таблиці:"
 msgid "UR5WKM"
 msgstr "UR5WKM"
 
-#: index.php:60
-msgid "URL to api.php file of Simple iGate Status Monitor with API key:"
+#: index.php:61
+#| msgid "URL to api.php file of Simple iGate Status Monitor with API key:"
+msgid "URL to api.php file of Simple IGate Status Monitor with API key:"
 msgstr ""
-"URL до файлу api.php з додатку Simple iGate Status Monitor, з ключем API:"
+"URL до файлу api.php з додатку Simple IGate Status Monitor, з ключем API:"

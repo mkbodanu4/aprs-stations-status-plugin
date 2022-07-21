@@ -1,15 +1,15 @@
 <?php
 /*
-Plugin Name:    Simple iGate Status Plugin
+Plugin Name:    Simple IGate Status Plugin
 Plugin URI:     https://github.com/mkbodanu4/simple-igate-status-plugin
-Description:    Add iGate/Digipeaters status on ARPS network to your WordPress site with shortcode [igate_status_table]
+Description:    Add IGate/Digipeaters status on ARPS network to your WordPress site with shortcode [igate_status_table]
 Version:        1.0
 Author:         UR5WKM
 Author URI:     https://diy.manko.pro
 Text Domain:    simple-igate-status-plugin
 */
 
-class Simple_iGate_Status_Plugin
+class Simple_IGate_Status_Plugin
 {
     public function __construct()
     {
@@ -32,14 +32,15 @@ class Simple_iGate_Status_Plugin
     public function register_settings()
     {
         register_setting('sigsp_options_group', 'sigsp_table_header');
+        register_setting('sigsp_options_group', 'sigsp_dead_time');
         register_setting('sigsp_options_group', 'sigsp_api_url');
     }
 
     public function setting_page()
     {
         add_options_page(
-            __('Simple iGate Status Plugin Settings', 'simple-igate-status-plugin'),
-            __('Simple iGate Status Plugin', 'simple-igate-status-plugin'),
+            __('Simple IGate Status Plugin Settings', 'simple-igate-status-plugin'),
+            __('Simple IGate Status Plugin', 'simple-igate-status-plugin'),
             'manage_options',
             'sigsp-setting',
             array($this, 'html_form')
@@ -57,7 +58,7 @@ class Simple_iGate_Status_Plugin
                     <tr>
                         <th>
                             <label for="sigsp_api_url">
-                                <?= __('URL to api.php file of Simple iGate Status Monitor with API key:', 'simple-igate-status-plugin'); ?>
+                                <?= __('URL to api.php file of Simple IGate Status Monitor with API key:', 'simple-igate-status-plugin'); ?>
                             </label>
                         </th>
                         <td>
@@ -76,6 +77,18 @@ class Simple_iGate_Status_Plugin
                             <input type='text' class="regular-text" id="sigsp_table_header" name="sigsp_table_header"
                                    placeholder="APRS DIGI and I-GATE Status"
                                    value="<?php echo get_option('sigsp_table_header'); ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="sigsp_dead_time">
+                                <?= __('Seconds level since last activity, appropriate for active station:', 'simple-igate-status-plugin'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input type='text' class="regular-text" id="sigsp_dead_time" name="sigsp_dead_time"
+                                   placeholder="3600"
+                                   value="<?php echo get_option('sigsp_dead_time'); ?>">
                         </td>
                     </tr>
                 </table>
@@ -128,7 +141,7 @@ class Simple_iGate_Status_Plugin
                 </tr>
                 <tr>
                     <th class="sigsp_text_center">
-                        <?= __('Digi/iGate Call Sign', 'simple-igate-status-plugin'); ?>
+                        <?= __('Digi/IGate Call Sign', 'simple-igate-status-plugin'); ?>
                     </th>
                     <th class="sigsp_text_center">
                         <?= __('Last Heard', 'simple-igate-status-plugin'); ?>
@@ -173,7 +186,7 @@ class Simple_iGate_Status_Plugin
                             call_signs_from_region.forEach(function (call_sign) {
                                 var date_last_heard = +new Date(call_sign.date_last_heard.replace(" ", "T") + "Z"),
                                     seconds_last_heard = (+new Date() - date_last_heard) / 1000,
-                                    is_active = seconds_last_heard <= 3600,
+                                    is_active = seconds_last_heard <= <?= intval(get_option('sigsp_dead_time')) ?>,
                                     source = call_sign.path.indexOf("qAC") !== -1 ? "TCP-IP" : "RF";
 
                                 tbody += '<tr class="sigsp_text_center">';
@@ -233,4 +246,4 @@ class Simple_iGate_Status_Plugin
     }
 }
 
-$Simple_iGate_Status_Plugin = new Simple_iGate_Status_Plugin();
+$Simple_IGate_Status_Plugin = new Simple_IGate_Status_Plugin();

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Simple iGate Status Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 18:37+0000\n"
+"POT-Creation-Date: 2022-07-21 23:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -16,22 +16,22 @@ msgstr ""
 "X-Loco-Version: 2.6.2; wp-6.0.1\n"
 "X-Domain: SiGSP"
 
-#: index.php:177
+#: index.php:195
 msgid "Active"
 msgstr ""
 
 #. Description of the plugin
 msgid ""
-"Add iGate/Digipeaters status on ARPS network to your WordPress site with "
+"Add IGate/Digipeaters status on ARPS network to your WordPress site with "
 "shortcode [igate_status_table]"
 msgstr ""
 
-#: index.php:177
+#: index.php:195
 msgid "Dead"
 msgstr ""
 
-#: index.php:131
-msgid "Digi/iGate Call Sign"
+#: index.php:144
+msgid "Digi/IGate Call Sign"
 msgstr ""
 
 #. Author URI of the plugin
@@ -42,44 +42,48 @@ msgstr ""
 msgid "https://github.com/mkbodanu4/simple-igate-status-plugin"
 msgstr ""
 
-#: index.php:134
+#: index.php:147
 msgid "Last Heard"
 msgstr ""
 
-#: index.php:183
+#: index.php:202
 msgid "Last update:"
 msgstr ""
 
-#: index.php:126
+#: index.php:139
 msgid "Last update: Loading..."
 msgstr ""
 
-#: index.php:147
+#: index.php:160
 msgid "Loading..."
 msgstr ""
 
-#: index.php:53
+#: index.php:54
 msgid "Plugin Settings"
 msgstr ""
 
+#: index.php:85
+msgid "Seconds level since last activity, appropriate for active station:"
+msgstr ""
+
 #. Name of the plugin
+#: index.php:43
+msgid "Simple IGate Status Plugin"
+msgstr ""
+
 #: index.php:42
-msgid "Simple iGate Status Plugin"
+msgid "Simple IGate Status Plugin Settings"
 msgstr ""
 
-#: index.php:41
-msgid "Simple iGate Status Plugin Settings"
-msgstr ""
-
-#: index.php:140
+#: index.php:153
 msgid "Source"
 msgstr ""
 
-#: index.php:137
+#: index.php:150
 msgid "Status"
 msgstr ""
 
-#: index.php:72
+#: index.php:73
 msgid "Table header:"
 msgstr ""
 
@@ -87,6 +91,6 @@ msgstr ""
 msgid "UR5WKM"
 msgstr ""
 
-#: index.php:60
-msgid "URL to api.php file of Simple iGate Status Monitor with API key:"
+#: index.php:61
+msgid "URL to api.php file of Simple IGate Status Monitor with API key:"
 msgstr ""

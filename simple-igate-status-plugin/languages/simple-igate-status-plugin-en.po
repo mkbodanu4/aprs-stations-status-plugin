@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-21 17:05+0000\n"
-"PO-Revision-Date: 2022-07-21 18:38+0000\n"
+"PO-Revision-Date: 2022-07-21 23:50+0000\n"
 "Last-Translator: \n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -14,25 +14,29 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.6.2; wp-6.0.1"
 
-#: index.php:177
+#: index.php:195
 msgid "Active"
 msgstr "Active"
 
 #. Description of the plugin
+#| msgid ""
+#| "Add iGate/Digipeaters status on ARPS network to your WordPress site with "
+#| "shortcode [igate_status_table]"
 msgid ""
-"Add iGate/Digipeaters status on ARPS network to your WordPress site with "
+"Add IGate/Digipeaters status on ARPS network to your WordPress site with "
 "shortcode [igate_status_table]"
 msgstr ""
-"Add iGate/Digipeaters status on ARPS network to your WordPress site with "
+"Add IGate/Digipeaters status on ARPS network to your WordPress site with "
 "shortcode [igate_status_table]"
 
-#: index.php:177
+#: index.php:195
 msgid "Dead"
 msgstr "Dead"
 
-#: index.php:131
-msgid "Digi/iGate Call Sign"
-msgstr "Digi/iGate Call Sign"
+#: index.php:144
+#| msgid "Digi/iGate Call Sign"
+msgid "Digi/IGate Call Sign"
+msgstr "Digi/IGate Call Sign"
 
 #. Author URI of the plugin
 msgid "https://diy.manko.pro"
@@ -42,44 +46,50 @@ msgstr "https://diy.manko.pro"
 msgid "https://github.com/mkbodanu4/simple-igate-status-plugin"
 msgstr "https://github.com/mkbodanu4/simple-igate-status-plugin"
 
-#: index.php:134
+#: index.php:147
 msgid "Last Heard"
 msgstr "Last Heard"
 
-#: index.php:183
+#: index.php:202
 msgid "Last update:"
 msgstr "Last update:"
 
-#: index.php:126
+#: index.php:139
 msgid "Last update: Loading..."
 msgstr "Last update: Loading..."
 
-#: index.php:147
+#: index.php:160
 msgid "Loading..."
 msgstr "Loading..."
 
-#: index.php:53
+#: index.php:54
 msgid "Plugin Settings"
 msgstr "Plugin Settings"
 
+#: index.php:85
+msgid "Seconds level since last activity, appropriate for active station:"
+msgstr "Seconds level since last activity, appropriate for active station:"
+
 #. Name of the plugin
+#: index.php:43
+#| msgid "Simple iGate Status Plugin"
+msgid "Simple IGate Status Plugin"
+msgstr "Simple IGate Status Plugin"
+
 #: index.php:42
-msgid "Simple iGate Status Plugin"
-msgstr "Simple iGate Status Plugin"
+#| msgid "Simple iGate Status Plugin Settings"
+msgid "Simple IGate Status Plugin Settings"
+msgstr "Simple IGate Status Plugin Settings"
 
-#: index.php:41
-msgid "Simple iGate Status Plugin Settings"
-msgstr "Simple iGate Status Plugin Settings"
-
-#: index.php:140
+#: index.php:153
 msgid "Source"
 msgstr "Source"
 
-#: index.php:137
+#: index.php:150
 msgid "Status"
 msgstr "Status"
 
-#: index.php:72
+#: index.php:73
 msgid "Table header:"
 msgstr "Table header:"
 
@@ -87,6 +97,7 @@ msgstr "Table header:"
 msgid "UR5WKM"
 msgstr "UR5WKM"
 
-#: index.php:60
-msgid "URL to api.php file of Simple iGate Status Monitor with API key:"
-msgstr "URL to api.php file of Simple iGate Status Monitor with API key:"
+#: index.php:61
+#| msgid "URL to api.php file of Simple iGate Status Monitor with API key:"
+msgid "URL to api.php file of Simple IGate Status Monitor with API key:"
+msgstr "URL to api.php file of Simple IGate Status Monitor with API key:"
