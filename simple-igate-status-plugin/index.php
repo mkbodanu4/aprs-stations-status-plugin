@@ -123,6 +123,24 @@ class Simple_IGate_Status_Plugin
             .sigsp_text_center {
                 text-align: center;
             }
+
+            .sigsp_igate {
+                font-size: 10px;
+            }
+
+            .sigsp_info {
+                cursor: help;
+            }
+
+            @media only screen and (max-width: 500px) {
+                .sigsp_table {
+                    font-size: 12px !important;
+                }
+
+                .sigsp_table td, th {
+                    padding: 1px !important;
+                }
+            }
         </style>
         <div>
             <table class="sigsp_table">
@@ -144,10 +162,10 @@ class Simple_IGate_Status_Plugin
                         <?= __('Digi/IGate Call Sign', 'simple-igate-status-plugin'); ?>
                     </th>
                     <th class="sigsp_text_center">
-                        <?= __('Last Heard', 'simple-igate-status-plugin'); ?>
+                        <?= __('Status', 'simple-igate-status-plugin'); ?>
                     </th>
                     <th class="sigsp_text_center">
-                        <?= __('Status', 'simple-igate-status-plugin'); ?>
+                        <?= __('Last Activity', 'simple-igate-status-plugin'); ?>
                     </th>
                     <th class="sigsp_text_center">
                         <?= __('Source', 'simple-igate-status-plugin'); ?>
@@ -184,22 +202,65 @@ class Simple_IGate_Status_Plugin
                             tbody += '<tr class="sigsp_text_center">' + '<th colspan="4">' + region.title + '</th>' + '</tr>';
 
                             call_signs_from_region.forEach(function (call_sign) {
-                                var date_last_heard = +new Date(call_sign.date_last_heard.replace(" ", "T") + "Z"),
-                                    seconds_last_heard = (+new Date() - date_last_heard) / 1000,
-                                    is_active = seconds_last_heard <= <?= intval(get_option('sigsp_dead_time')) ?>,
-                                    source = call_sign.path.indexOf("qAC") !== -1 ? "TCP-IP" : "RF";
+                                var date_updated = +new Date(call_sign.date.replace(" ", "T") + "Z"),
+                                    seconds_last_heard = (+new Date() - date_updated) / 1000,
+                                    is_active = (<?= intval(get_option('sigsp_dead_time')); ?> > seconds_last_heard),
+                                    data_source = null,
+                                    action = '',
+                                    img = '';
+
+                                if (call_sign.beacon_date && call_sign.activity_date) {
+                                    if (+new Date(call_sign.beacon_date.replace(" ", "T") + "Z") > +new Date(call_sign.activity_date.replace(" ", "T") + "Z")) {
+                                        data_source = 'beacon';
+                                        action = '<?= __('Beacon over', 'simple-igate-status-plugin'); ?> '
+                                    } else {
+                                        data_source = 'activity'
+                                    }
+                                } else if (call_sign.beacon_date && !call_sign.activity_date) {
+                                    data_source = 'beacon'
+                                    action = '<?= __('Beacon over', 'simple-igate-status-plugin'); ?> '
+                                } else if (!call_sign.beacon_date && call_sign.activity_date) {
+                                    data_source = 'activity'
+                                }
+
+                                var path = data_source ? call_sign[data_source + '_path'].split(",").reverse() : "N/A",
+                                    igate = path[0],
+                                    q = path[1],
+                                    source = "TCP-IP",
+                                    from = data_source ? call_sign[data_source + '_from'] : "N/A";
+
+                                if (['qAR', 'qAO', 'qAo'].includes(q)) {
+                                    source = 'RF' + (igate !== call_sign.call_sign ? ' <span class="sigsp_igate">(IGate: ' + igate + ')</span>' : '');
+                                }
+
+                                if (call_sign.beacon_symbol && call_sign.beacon_symbol_table) {
+                                    var symbol_table = call_sign.beacon_symbol_table.charCodeAt(0),
+                                        symbol = call_sign.beacon_symbol.charCodeAt(0);
+
+                                    if (symbol_table === 47) {
+                                        symbol_table = 1
+                                    } else if (symbol_table === 92) {
+                                        symbol_table = 1
+                                    } else {
+                                        symbol_table = 1
+                                    }
+
+                                    img = '<img src="<?= plugin_dir_url(__FILE__); ?>icons/' + symbol + '-' + symbol_table + '.png">' + ' ';
+                                } else {
+                                    img = '<img src="<?= plugin_dir_url(__FILE__); ?>icons/' + '47-1' + '.png">' + ' ';
+                                }
 
                                 tbody += '<tr class="sigsp_text_center">';
-                                tbody += '<td>' + call_sign.call_sign + '</td>';
-                                tbody += '<td>' + moment(date_last_heard).fromNow() + '</td>';
+                                tbody += '<td>' + '<a href="https://aprs.fi/?call=' + call_sign.call_sign + '" target="_blank">' + img + call_sign.call_sign + '</a>' + '</td>';
                                 tbody += '<td>' + (is_active ? "<?= __('Active', 'simple-igate-status-plugin'); ?>" : "<?= __('Dead', 'simple-igate-status-plugin'); ?>") + '</td>';
-                                tbody += '<td>' + source + '</td>';
+                                tbody += '<td>' + moment(date_updated).fromNow() + '</td>';
+                                tbody += '<td class="sigsp_info"><span title="' + from + '>' + path.reverse().join(',') + '">' + action + source + '</span></td>';
                                 tbody += '</tr>';
                             });
                         });
 
                         document.getElementById('sigsp_table').innerHTML = tbody;
-                        document.getElementById('sigsp_last_update').innerHTML = "<?= __('Last update:', 'simple-igate-status-plugin'); ?> " + new Date().toLocaleString();
+                        document.getElementById('sigsp_last_update').innerHTML = "<?= __('Last update:', 'simple-igate-status-plugin'); ?> " + moment().format('lll');
                     }
                 };
                 xhttp.send("action=sigsp_table");

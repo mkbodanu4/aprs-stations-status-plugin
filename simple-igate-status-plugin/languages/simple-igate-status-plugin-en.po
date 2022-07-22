@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-21 17:05+0000\n"
-"PO-Revision-Date: 2022-07-21 23:50+0000\n"
+"PO-Revision-Date: 2022-07-22 14:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.6.2; wp-6.0.1"
 
-#: index.php:195
+#: index.php:243
 msgid "Active"
 msgstr "Active"
 
@@ -29,11 +29,16 @@ msgstr ""
 "Add IGate/Digipeaters status on ARPS network to your WordPress site with "
 "shortcode [igate_status_table]"
 
-#: index.php:195
+#: index.php:205 index.php:211
+#| msgid "Beacon over "
+msgid "Beacon over"
+msgstr "Beacon over"
+
+#: index.php:243
 msgid "Dead"
 msgstr "Dead"
 
-#: index.php:144
+#: index.php:152
 #| msgid "Digi/iGate Call Sign"
 msgid "Digi/IGate Call Sign"
 msgstr "Digi/IGate Call Sign"
@@ -46,19 +51,19 @@ msgstr "https://diy.manko.pro"
 msgid "https://github.com/mkbodanu4/simple-igate-status-plugin"
 msgstr "https://github.com/mkbodanu4/simple-igate-status-plugin"
 
-#: index.php:147
-msgid "Last Heard"
-msgstr "Last Heard"
+#: index.php:158
+msgid "Last Activity"
+msgstr "Last Activity"
 
-#: index.php:202
+#: index.php:251
 msgid "Last update:"
 msgstr "Last update:"
 
-#: index.php:139
+#: index.php:147
 msgid "Last update: Loading..."
 msgstr "Last update: Loading..."
 
-#: index.php:160
+#: index.php:168
 msgid "Loading..."
 msgstr "Loading..."
 
@@ -81,11 +86,11 @@ msgstr "Simple IGate Status Plugin"
 msgid "Simple IGate Status Plugin Settings"
 msgstr "Simple IGate Status Plugin Settings"
 
-#: index.php:153
+#: index.php:161
 msgid "Source"
 msgstr "Source"
 
-#: index.php:150
+#: index.php:155
 msgid "Status"
 msgstr "Status"
 

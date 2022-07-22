@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Simple iGate Status Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 23:50+0000\n"
+"POT-Creation-Date: 2022-07-22 14:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Loco-Version: 2.6.2; wp-6.0.1\n"
 "X-Domain: SiGSP"
 
-#: index.php:195
+#: index.php:243
 msgid "Active"
 msgstr ""
 
@@ -26,11 +26,15 @@ msgid ""
 "shortcode [igate_status_table]"
 msgstr ""
 
-#: index.php:195
+#: index.php:205 index.php:211
+msgid "Beacon over"
+msgstr ""
+
+#: index.php:243
 msgid "Dead"
 msgstr ""
 
-#: index.php:144
+#: index.php:152
 msgid "Digi/IGate Call Sign"
 msgstr ""
 
@@ -42,19 +46,19 @@ msgstr ""
 msgid "https://github.com/mkbodanu4/simple-igate-status-plugin"
 msgstr ""
 
-#: index.php:147
-msgid "Last Heard"
+#: index.php:158
+msgid "Last Activity"
 msgstr ""
 
-#: index.php:202
+#: index.php:251
 msgid "Last update:"
 msgstr ""
 
-#: index.php:139
+#: index.php:147
 msgid "Last update: Loading..."
 msgstr ""
 
-#: index.php:160
+#: index.php:168
 msgid "Loading..."
 msgstr ""
 
@@ -75,11 +79,11 @@ msgstr ""
 msgid "Simple IGate Status Plugin Settings"
 msgstr ""
 
-#: index.php:153
+#: index.php:161
 msgid "Source"
 msgstr ""
 
-#: index.php:150
+#: index.php:155
 msgid "Status"
 msgstr ""
 
