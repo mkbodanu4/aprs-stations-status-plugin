@@ -239,14 +239,14 @@ class APRS_Stations_Status_Plugin
 
                         var tbody = '';
 
-                        json.regions.forEach(function (region) {
-                            var call_signs_from_region = json.data.filter(function (call_sign) {
-                                return call_sign.region_id === region.region_id;
+                        json.groups.forEach(function (group) {
+                            var call_signs_from_group = json.data.filter(function (call_sign) {
+                                return call_sign.group_id === group.group_id;
                             });
 
-                            tbody += '<tr class="assp_text_center">' + '<th colspan="4">' + region.title + '</th>' + '</tr>';
+                            tbody += '<tr class="assp_text_center">' + '<th colspan="4">' + group.title + '</th>' + '</tr>';
 
-                            call_signs_from_region.forEach(function (call_sign) {
+                            call_signs_from_group.forEach(function (call_sign) {
                                 var is_active = false,
                                     is_active_string = '-',
                                     last_activity_string = '-',
