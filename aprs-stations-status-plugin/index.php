@@ -38,11 +38,13 @@ class APRS_Stations_Status_Plugin
         delete_option('assp_api_key');
         delete_option('assp_table_header');
         delete_option('assp_dead_time');
+        delete_option('assp_table_group_filter');
 
         unregister_setting('assp_options_group', 'assp_frontend_url');
         unregister_setting('assp_options_group', 'assp_api_key');
         unregister_setting('assp_options_group', 'assp_table_header');
         unregister_setting('assp_options_group', 'assp_dead_time');
+        unregister_setting('assp_options_group', 'assp_table_group_filter');
     }
 
     public function register_settings()
@@ -51,6 +53,7 @@ class APRS_Stations_Status_Plugin
         register_setting('assp_options_group', 'assp_api_key');
         register_setting('assp_options_group', 'assp_table_header');
         register_setting('assp_options_group', 'assp_dead_time');
+        register_setting('assp_options_group', 'assp_table_group_filter');
     }
 
     public function setting_page()
@@ -81,7 +84,7 @@ class APRS_Stations_Status_Plugin
                         </th>
                         <td>
                             <input type='text' class="regular-text" id="assp_frontend_url" name="assp_frontend_url"
-                                   placeholder="https://demo.com/folder/"
+                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> https://demo.com/folder/"
                                    value="<?= get_option('assp_frontend_url'); ?>">
                         </td>
                     </tr>
@@ -93,7 +96,7 @@ class APRS_Stations_Status_Plugin
                         </th>
                         <td>
                             <input type='text' class="regular-text" id="assp_api_key" name="assp_api_key"
-                                   placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
                                    value="<?= get_option('assp_api_key'); ?>">
                         </td>
                     </tr>
@@ -120,7 +123,7 @@ class APRS_Stations_Status_Plugin
                         </th>
                         <td>
                             <input type='text' class="regular-text" id="assp_table_header" name="assp_table_header"
-                                   placeholder="<?= __('APRS Stations Status', 'aprs-stations-status-plugin'); ?>"
+                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> <?= __('APRS Stations Status', 'aprs-stations-status-plugin'); ?>"
                                    value="<?= get_option('assp_table_header'); ?>">
                         </td>
                     </tr>
@@ -132,8 +135,21 @@ class APRS_Stations_Status_Plugin
                         </th>
                         <td>
                             <input type='text' class="regular-text" id="assp_dead_time" name="assp_dead_time"
-                                   placeholder="3600"
+                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> 7200"
                                    value="<?= get_option('assp_dead_time'); ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="assp_table_group_filter">
+                                <?= __('Comma-separated list of groups to show (leave empty to disable this filtering)', 'aprs-stations-status-plugin') . ":"; ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input type='text' class="regular-text" id="assp_table_group_filter"
+                                   name="assp_table_group_filter"
+                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> 1,2,3"
+                                   value="<?= get_option('assp_table_group_filter'); ?>">
                         </td>
                     </tr>
                 </table>
@@ -229,7 +245,11 @@ class APRS_Stations_Status_Plugin
         <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/min/moment-with-locales.min.js"
                 integrity="sha256-QwcluVRoJ33LzMJ+COPYcydsAIJzcxCwsa0zA5JRGEc=" crossorigin="anonymous"></script>
         <script>
-            function assp_reload_data() {
+            var assp_table_group_filter = JSON.parse("<?= json_encode(array_map(function ($group) {
+                return intval($group);
+            }, explode(",", get_option('assp_table_group_filter')))); ?>");
+
+            function assp_table_reload_data() {
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("POST", "<?= admin_url('admin-ajax.php');?>", true);
                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
@@ -306,15 +326,14 @@ class APRS_Stations_Status_Plugin
                         document.getElementById('assp_last_update').innerHTML = "<?= __('Last update', 'aprs-stations-status-plugin'); ?>: " + moment().format('lll');
                     }
                 };
-                xhttp.send("action=assp_table");
+                xhttp.send("action=assp_table&get=status" + (assp_table_group_filter ? "&group=" + assp_table_group_filter.join(',') : ""));
             }
 
             document.addEventListener("DOMContentLoaded", function (event) {
-                assp_reload_data();
-
                 moment.locale("<?=get_locale();?>");
 
-                setInterval(assp_reload_data, 60000);
+                assp_table_reload_data();
+                setInterval(assp_table_reload_data, 60000);
             });
         </script>
         <?php
@@ -326,15 +345,23 @@ class APRS_Stations_Status_Plugin
     public function ajax_data()
     {
         $frontend_url = get_option('assp_frontend_url');
+        $api_url = trim($frontend_url, '/') . '/api.php';
         $api_key = get_option('assp_api_key');
+
+        $get = filter_var($_POST['get'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $group = filter_var($_POST['group'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $params = array(
+            'key' => $api_key,
+            'get' => $get ?? NULL,
+            'group' => $group ?? NULL,
+        );
+        $request_url = $api_url . '?' . http_build_query($params);
 
         if (!$frontend_url || !$api_key)
             wp_die();
 
         $handler = curl_init();
-        curl_setopt($handler, CURLOPT_URL, trim($frontend_url, '/') . '/api.php?' . http_build_query(array(
-                'key' => $api_key
-            )));
+        curl_setopt($handler, CURLOPT_URL, $request_url);
         curl_setopt($handler, CURLOPT_HEADER, FALSE);
         curl_setopt($handler, CURLINFO_HEADER_OUT, FALSE);
         curl_setopt($handler, CURLOPT_FOLLOWLOCATION, TRUE);
