@@ -247,7 +247,12 @@ class APRS_Stations_Status_Plugin
                             tbody += '<tr class="assp_text_center">' + '<th colspan="4">' + region.title + '</th>' + '</tr>';
 
                             call_signs_from_region.forEach(function (call_sign) {
-                                var is_active = false, img = '', action = '', last_activity_string = '-', source = '-';
+                                var is_active = false,
+                                    is_active_string = '-',
+                                    last_activity_string = '-',
+                                    type = '',
+                                    action = '-',
+                                    img = '';
 
                                 if (call_sign.date_last_activity !== null) {
                                     var date_last_activity = +new Date(call_sign.date_last_activity.replace(" ", "T") + "Z"),
@@ -257,12 +262,27 @@ class APRS_Stations_Status_Plugin
                                         q = path[1];
 
                                     is_active = (<?= intval(get_option('assp_dead_time')); ?> > seconds_last_heard)
+                                    is_active_string = is_active ? "<?= __('Active', 'aprs-stations-status-plugin'); ?>" : "<?= __('Dead', 'aprs-stations-status-plugin'); ?>";
                                     last_activity_string = moment(date_last_activity).fromNow()
 
+                                    if (call_sign.last_activity === 'position') {
+                                        type = '<?= __('Position', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>';
+                                    } else if (call_sign.last_activity === 'object') {
+                                        type = "<?= __('Object', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>";
+                                    } else if (call_sign.last_activity === 'routing') {
+                                        type = '<?= __('Routing', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>';
+                                    } else if (call_sign.last_activity === 'status') {
+                                        type = '<?= __('Status', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>';
+                                    } else if (call_sign.last_activity === 'telemetry') {
+                                        type = '<?= __('Telemetry', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>';
+                                    } else if (call_sign.last_activity === 'weather') {
+                                        type = '<?= __('WX', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>';
+                                    }
+
                                     if (['qAR', 'qAO', 'qAo'].includes(q)) {
-                                        source = 'RF' + (igate !== call_sign.call_sign ? ' <span class="assp_igate">(IGate: ' + igate + ')</span>' : '');
+                                        action = 'RF' + (igate !== call_sign.call_sign ? ' <span class="assp_igate">(IGate: ' + igate + ')</span>' : '');
                                     } else {
-                                        source = "TCP-IP";
+                                        action = "TCP-IP";
                                     }
 
                                     var symbol = 47, symbol_table = 1;
@@ -271,27 +291,13 @@ class APRS_Stations_Status_Plugin
                                         symbol = call_sign.symbol.charCodeAt(0);
                                     }
                                     img = '<img src="<?= plugin_dir_url(__FILE__); ?>symbols/symbol-' + symbol + '-' + symbol_table + '.svg">' + ' ';
-
-                                    if (call_sign.last_activity === 'position') {
-                                        action = '<?= __('Position', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>';
-                                    } else if (call_sign.last_activity === 'object') {
-                                        action = "<?= __('Object', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>";
-                                    } else if (call_sign.last_activity === 'routing') {
-                                        action = '<?= __('Routing', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>';
-                                    } else if (call_sign.last_activity === 'status') {
-                                        action = '<?= __('Status', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>';
-                                    } else if (call_sign.last_activity === 'telemetry') {
-                                        action = '<?= __('Telemetry', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>';
-                                    } else if (call_sign.last_activity === 'weather') {
-                                        action = '<?= __('WX', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>';
-                                    }
                                 }
 
                                 tbody += '<tr class="assp_text_center">';
                                 tbody += '<td>' + '<a href="https://aprs.fi/?call=' + call_sign.call_sign + '" target="_blank">' + img + call_sign.call_sign + '</a>' + '</td>';
-                                tbody += '<td>' + (call_sign.date_last_activity == null ? '-' : (is_active ? "<?= __('Active', 'aprs-stations-status-plugin'); ?>" : "<?= __('Dead', 'aprs-stations-status-plugin'); ?>")) + '</td>';
+                                tbody += '<td>' + is_active_string + '</td>';
                                 tbody += '<td>' + last_activity_string + '</td>';
-                                tbody += '<td class="assp_info"><span title="' + call_sign.last_raw + '">' + action + source + '</span></td>';
+                                tbody += '<td class="assp_info"><span title="' + call_sign.last_raw + '">' + type + action + '</span></td>';
                                 tbody += '</tr>';
                             });
                         });
