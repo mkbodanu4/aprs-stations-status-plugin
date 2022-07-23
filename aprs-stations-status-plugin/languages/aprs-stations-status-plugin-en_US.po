@@ -1,0 +1,124 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: APRS Stations Status Plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-23 13:00+0000\n"
+"PO-Revision-Date: 2022-07-23 13:19+0000\n"
+"Last-Translator: \n"
+"Language-Team: English (United States)\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.2; wp-6.0.1\n"
+"X-Domain: aprs-stations-status-plugin"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:276
+msgid "Active"
+msgstr "Active"
+
+#. Description of the plugin
+msgid ""
+"Add APRS stations status in various forms to your WordPress site with "
+"shortcodes."
+msgstr ""
+"Add APRS stations status in various forms to your WordPress site with "
+"shortcodes."
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:76
+msgid "API Key"
+msgstr "API Key"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:108
+msgid "APRS Stations Status"
+msgstr "APRS Stations Status"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:58
+msgid "APRS Stations Status Monitor"
+msgstr "APRS Stations Status Monitor"
+
+#. Name of the plugin
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:44
+msgid "APRS Stations Status Plugin"
+msgstr "APRS Stations Status Plugin"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:43
+msgid "APRS Stations Status Plugin Settings"
+msgstr "APRS Stations Status Plugin Settings"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:246
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:252
+msgid "Beacon over"
+msgstr "Beacon over"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:193
+msgid "Call Sign"
+msgstr "Call Sign"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:276
+msgid "Dead"
+msgstr "Dead"
+
+#. Author URI of the plugin
+msgid "https://diy.manko.pro"
+msgstr "https://diy.manko.pro"
+
+#. URI of the plugin
+msgid "https://github.com/mkbodanu4/aprs-stations-status-plugin"
+msgstr "https://github.com/mkbodanu4/aprs-stations-status-plugin"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:199
+msgid "Last Activity"
+msgstr "Last Activity"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:188
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:284
+#| msgid "Last update:"
+msgid "Last update"
+msgstr "Last update"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:188
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:209
+msgid "Loading..."
+msgstr "Loading..."
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:55
+msgid "Plugin Settings"
+msgstr "Plugin Settings"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:115
+#| msgid "Seconds level since last activity, appropriate for active station:"
+msgid "Seconds level since last activity, appropriate for active station"
+msgstr "Seconds level since last activity, appropriate for active station"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:92
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:202
+msgid "Source"
+msgstr "Source"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:196
+msgid "Status"
+msgstr "Status"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:87
+msgid "Table"
+msgstr "Table"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:103
+#| msgid "Table header:"
+msgid "Table header"
+msgstr "Table header"
+
+#. Author of the plugin
+msgid "UR5WKM"
+msgstr "UR5WKM"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:63
+#| msgid "URL to APRS Stations Status Monitor API:"
+msgid "URL to APRS Stations Status Monitor Frontend"
+msgstr "URL to APRS Stations Status Monitor Frontend"

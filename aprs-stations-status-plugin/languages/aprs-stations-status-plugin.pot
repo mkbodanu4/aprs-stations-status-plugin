@@ -1,0 +1,119 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: APRS Stations Status Plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-23 13:17+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.2; wp-6.0.1\n"
+"X-Domain: aprs-stations-status-plugin"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:276
+msgid "Active"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Add APRS stations status in various forms to your WordPress site with "
+"shortcodes."
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:76
+msgid "API Key"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:108
+msgid "APRS Stations Status"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:58
+msgid "APRS Stations Status Monitor"
+msgstr ""
+
+#. Name of the plugin
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:44
+msgid "APRS Stations Status Plugin"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:43
+msgid "APRS Stations Status Plugin Settings"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:246
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:252
+msgid "Beacon over"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:193
+msgid "Call Sign"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:276
+msgid "Dead"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://diy.manko.pro"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://github.com/mkbodanu4/aprs-stations-status-plugin"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:199
+msgid "Last Activity"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:188
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:284
+msgid "Last update"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:188
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:209
+msgid "Loading..."
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:55
+msgid "Plugin Settings"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:115
+msgid "Seconds level since last activity, appropriate for active station"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:92
+msgid "Shortcode"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:202
+msgid "Source"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:196
+msgid "Status"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:87
+msgid "Table"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:103
+msgid "Table header"
+msgstr ""
+
+#. Author of the plugin
+msgid "UR5WKM"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:63
+msgid "URL to APRS Stations Status Monitor Frontend"
+msgstr ""

@@ -1,20 +1,18 @@
-# Simple iGate Status Plugin
+# APRS Stations Status Plugin
 
-(Very) simple application to show iGate/Digipeaters status on APRS network.
+Add APRS stations status in various forms to your WordPress site with shortcodes.
+This plugin requires APRS Stations Status Monitor as data source.
 
-Inspired by IZ7BOJ's [APRS-dashboard](https://github.com/IZ7BOJ/APRS_dashboard)
+APRS Stations Status Monitor consist of two parts and you need to have both running somewhere.
+* [PHP-based frontend](https://github.com/mkbodanu4/aprs-stations-status-monitor-frontend)
+* [Python-based backend](https://github.com/mkbodanu4/aprs-stations-status-monitor-backend)
 
-This plugin requires [Simple iGate Status Monitor](https://github.com/mkbodanu4/simple-igate-status-monitor) as data source.
+Idea of this software inspired by IZ7BOJ's [APRS-dashboard](https://github.com/IZ7BOJ/APRS_dashboard)
 
 ## Installation
 
 1. Add plugin to your WordPress site and activate it
-2. Open Settings - Simple iGate Status Plugin settings page
-3. Fill URL to api.php of Simple iGate Status Monitor application
-4. Add optional table header
-5. Insert shortcode \[igate_status_table\] to any page or blog post.
+2. Open **Settings** -> **APRS Stations Status Plugin** settings page
+3. Fill all mandatory settings
+5. Insert one of available shortcode to any page or post.
 6. Done!
-
-## License
-
-GPL v3
