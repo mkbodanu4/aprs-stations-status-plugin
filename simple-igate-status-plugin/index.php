@@ -237,17 +237,8 @@ class Simple_IGate_Status_Plugin
                                 if (call_sign.beacon_symbol && call_sign.beacon_symbol_table) {
                                     symbol_table = call_sign.beacon_symbol_table.charCodeAt(0);
                                     symbol = call_sign.beacon_symbol.charCodeAt(0);
-
-                                    if (symbol_table === 47) {
-                                        symbol_table = 1
-                                    } else if (symbol_table === 92) {
-                                        symbol_table = 1
-                                    } else {
-                                        symbol = 47;
-                                        symbol_table = 1;
-                                    }
                                 }
-                                img = '<img src="<?= plugin_dir_url(__FILE__); ?>icons/' + symbol + '-' + symbol_table + '.png">' + ' ';
+                                img = '<img src="<?= plugin_dir_url(__FILE__); ?>symbols/symbol-' + symbol + '-' + symbol_table + '.svg">' + ' ';
 
                                 tbody += '<tr class="sigsp_text_center">';
                                 tbody += '<td>' + '<a href="https://aprs.fi/?call=' + call_sign.call_sign + '" target="_blank">' + img + call_sign.call_sign + '</a>' + '</td>';
