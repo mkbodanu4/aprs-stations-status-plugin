@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: APRS Stations Status Plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-23 13:00+0000\n"
-"PO-Revision-Date: 2022-07-23 13:19+0000\n"
+"PO-Revision-Date: 2022-07-23 19:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: Українська\n"
 "Language: uk\n"
@@ -16,9 +16,13 @@ msgstr ""
 "X-Loco-Version: 2.6.2; wp-6.0.1\n"
 "X-Domain: aprs-stations-status-plugin"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:276
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:216
+msgid "Action"
+msgstr "Дія"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:286
 msgid "Active"
-msgstr "Активна"
+msgstr "Активний"
 
 #. Description of the plugin
 msgid ""
@@ -28,37 +32,32 @@ msgstr ""
 "Додайта у ваш WordPress сайт статус APRS станцій у різних формах за "
 "допомогою коротких кодів. "
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:76
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:91
 msgid "API Key"
 msgstr "Ключ API"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:108
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:123
 msgid "APRS Stations Status"
 msgstr "Стан станцій APRS"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:58
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:74
 msgid "APRS Stations Status Monitor"
 msgstr "APRS Stations Status Monitor"
 
 #. Name of the plugin
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:44
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:60
 msgid "APRS Stations Status Plugin"
 msgstr "APRS Stations Status Plugin"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:43
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:59
 msgid "APRS Stations Status Plugin Settings"
 msgstr "Налаштування APRS Stations Status Plugin"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:246
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:252
-msgid "Beacon over"
-msgstr "Маяк через"
-
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:193
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:207
 msgid "Call Sign"
 msgstr "Кличний знак"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:276
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:286
 msgid "Dead"
 msgstr "Мрець"
 
@@ -70,58 +69,84 @@ msgstr "https://diy.manko.pro"
 msgid "https://github.com/mkbodanu4/aprs-stations-status-plugin"
 msgstr "https://github.com/mkbodanu4/aprs-stations-status-plugin"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:199
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:213
 msgid "Last Activity"
 msgstr "Остання активність"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:188
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:284
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:202
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:294
 #| msgid "Last update:"
 msgid "Last update"
 msgstr "Оновлено"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:188
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:209
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:202
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:223
 msgid "Loading..."
 msgstr "Завантаження..."
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:55
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:273
+msgid "Object"
+msgstr "Об'єкт"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:271
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:273
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:275
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:277
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:279
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:281
+msgid "over"
+msgstr "через"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:71
 msgid "Plugin Settings"
 msgstr "Налаштування плагіну"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:115
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:271
+msgid "Position"
+msgstr "Позиція"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:275
+msgid "Routing"
+msgstr "Маршрутизація"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:130
 #| msgid "Seconds level since last activity, appropriate for active station:"
 msgid "Seconds level since last activity, appropriate for active station"
 msgstr ""
 "Час від останньої активності станції, протягом якого станція вважається "
 "активною"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:92
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:107
 msgid "Shortcode"
 msgstr "Короткий код"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:202
-msgid "Source"
-msgstr "Джерело"
-
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:196
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:210
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:277
 msgid "Status"
 msgstr "Стан"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:87
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:102
 msgid "Table"
 msgstr "Таблиця"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:103
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:118
 #| msgid "Table header:"
 msgid "Table header"
 msgstr "Загловок таблиці (необов'язково)"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:279
+msgid "Telemetry"
+msgstr "Телеметрія"
 
 #. Author of the plugin
 msgid "UR5WKM"
 msgstr "UR5WKM"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:63
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:79
 #| msgid "URL to APRS Stations Status Monitor API:"
 msgid "URL to APRS Stations Status Monitor Frontend"
-msgstr "URL до API від APRS Stations Status Monitor"
+msgstr "URL до папки з APRS Stations Status Monitor Frontend"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:281
+msgid "WX"
+msgstr "WX"

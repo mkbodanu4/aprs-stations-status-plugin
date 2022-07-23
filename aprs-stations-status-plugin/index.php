@@ -213,7 +213,7 @@ class APRS_Stations_Status_Plugin
                         <?= __('Last Activity', 'aprs-stations-status-plugin'); ?>
                     </th>
                     <th class="assp_text_center">
-                        <?= __('Source', 'aprs-stations-status-plugin'); ?>
+                        <?= __('Action', 'aprs-stations-status-plugin'); ?>
                     </th>
                 </tr>
                 </thead>
@@ -247,49 +247,51 @@ class APRS_Stations_Status_Plugin
                             tbody += '<tr class="assp_text_center">' + '<th colspan="4">' + region.title + '</th>' + '</tr>';
 
                             call_signs_from_region.forEach(function (call_sign) {
-                                var date_updated = +new Date(call_sign.date.replace(" ", "T") + "Z"),
-                                    seconds_last_heard = (+new Date() - date_updated) / 1000,
-                                    is_active = (<?= intval(get_option('assp_dead_time')); ?> > seconds_last_heard),
-                                    data_source = null,
-                                    action = '',
-                                    img = '';
+                                var is_active = false, img = '', action = '', last_activity_string = '-', source = '-';
 
-                                if (call_sign.beacon_date && call_sign.activity_date) {
-                                    if (+new Date(call_sign.beacon_date.replace(" ", "T") + "Z") > +new Date(call_sign.activity_date.replace(" ", "T") + "Z")) {
-                                        data_source = 'beacon';
-                                        action = '<?= __('Beacon over', 'aprs-stations-status-plugin'); ?> '
+                                if (call_sign.date_last_activity !== null) {
+                                    var date_last_activity = +new Date(call_sign.date_last_activity.replace(" ", "T") + "Z"),
+                                        seconds_last_heard = (+new Date() - date_last_activity) / 1000,
+                                        path = call_sign.last_path.split(",").reverse(),
+                                        igate = path[0],
+                                        q = path[1];
+
+                                    is_active = (<?= intval(get_option('assp_dead_time')); ?> > seconds_last_heard)
+                                    last_activity_string = moment(date_last_activity).fromNow()
+
+                                    if (['qAR', 'qAO', 'qAo'].includes(q)) {
+                                        source = 'RF' + (igate !== call_sign.call_sign ? ' <span class="assp_igate">(IGate: ' + igate + ')</span>' : '');
                                     } else {
-                                        data_source = 'activity'
+                                        source = "TCP-IP";
                                     }
-                                } else if (call_sign.beacon_date && !call_sign.activity_date) {
-                                    data_source = 'beacon'
-                                    action = '<?= __('Beacon over', 'aprs-stations-status-plugin'); ?> '
-                                } else if (!call_sign.beacon_date && call_sign.activity_date) {
-                                    data_source = 'activity'
-                                }
 
-                                var path = data_source ? call_sign[data_source + '_path'].split(",").reverse() : "N/A",
-                                    igate = path[0],
-                                    q = path[1],
-                                    source = "TCP-IP",
-                                    from = data_source ? call_sign[data_source + '_from'] : "N/A";
+                                    var symbol = 47, symbol_table = 1;
+                                    if (call_sign.symbol_table && call_sign.symbol) {
+                                        symbol_table = call_sign.symbol_table.charCodeAt(0);
+                                        symbol = call_sign.symbol.charCodeAt(0);
+                                    }
+                                    img = '<img src="<?= plugin_dir_url(__FILE__); ?>symbols/symbol-' + symbol + '-' + symbol_table + '.svg">' + ' ';
 
-                                if (['qAR', 'qAO', 'qAo'].includes(q)) {
-                                    source = 'RF' + (igate !== call_sign.call_sign ? ' <span class="assp_igate">(IGate: ' + igate + ')</span>' : '');
+                                    if (call_sign.last_activity === 'position') {
+                                        action = '<?= __('Position', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>';
+                                    } else if (call_sign.last_activity === 'object') {
+                                        action = "<?= __('Object', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>";
+                                    } else if (call_sign.last_activity === 'routing') {
+                                        action = '<?= __('Routing', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>';
+                                    } else if (call_sign.last_activity === 'status') {
+                                        action = '<?= __('Status', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>';
+                                    } else if (call_sign.last_activity === 'telemetry') {
+                                        action = '<?= __('Telemetry', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>';
+                                    } else if (call_sign.last_activity === 'weather') {
+                                        action = '<?= __('WX', 'aprs-stations-status-plugin') . ' ' . __('over', 'aprs-stations-status-plugin') . ' '; ?>';
+                                    }
                                 }
-
-                                var symbol = 47, symbol_table = 1;
-                                if (call_sign.beacon_symbol && call_sign.beacon_symbol_table) {
-                                    symbol_table = call_sign.beacon_symbol_table.charCodeAt(0);
-                                    symbol = call_sign.beacon_symbol.charCodeAt(0);
-                                }
-                                img = '<img src="<?= plugin_dir_url(__FILE__); ?>symbols/symbol-' + symbol + '-' + symbol_table + '.svg">' + ' ';
 
                                 tbody += '<tr class="assp_text_center">';
                                 tbody += '<td>' + '<a href="https://aprs.fi/?call=' + call_sign.call_sign + '" target="_blank">' + img + call_sign.call_sign + '</a>' + '</td>';
-                                tbody += '<td>' + (is_active ? "<?= __('Active', 'aprs-stations-status-plugin'); ?>" : "<?= __('Dead', 'aprs-stations-status-plugin'); ?>") + '</td>';
-                                tbody += '<td>' + moment(date_updated).fromNow() + '</td>';
-                                tbody += '<td class="assp_info"><span title="' + from + '>' + path.reverse().join(',') + '">' + action + source + '</span></td>';
+                                tbody += '<td>' + (call_sign.date_last_activity == null ? '-' : (is_active ? "<?= __('Active', 'aprs-stations-status-plugin'); ?>" : "<?= __('Dead', 'aprs-stations-status-plugin'); ?>")) + '</td>';
+                                tbody += '<td>' + last_activity_string + '</td>';
+                                tbody += '<td class="assp_info"><span title="' + call_sign.last_raw + '">' + action + source + '</span></td>';
                                 tbody += '</tr>';
                             });
                         });
@@ -324,7 +326,7 @@ class APRS_Stations_Status_Plugin
             wp_die();
 
         $handler = curl_init();
-        curl_setopt($handler, CURLOPT_URL, $frontend_url . '?' . http_build_query(array(
+        curl_setopt($handler, CURLOPT_URL, trim($frontend_url, '/') . '/api.php?' . http_build_query(array(
                 'key' => $api_key
             )));
         curl_setopt($handler, CURLOPT_HEADER, FALSE);
