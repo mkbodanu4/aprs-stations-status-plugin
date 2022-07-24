@@ -37,36 +37,15 @@ class APRS_Stations_Status_Plugin
     {
         delete_option('assp_frontend_url');
         delete_option('assp_api_key');
-        delete_option('assp_table_header');
-        delete_option('assp_dead_time');
-        delete_option('assp_table_group_filter');
-        delete_option('assp_map_group_filter');
-        delete_option('assp_map_zoom');
-        delete_option('assp_map_center');
-        delete_option('assp_aprs_is_filter_overlay');
 
         unregister_setting('assp_options_group', 'assp_frontend_url');
         unregister_setting('assp_options_group', 'assp_api_key');
-        unregister_setting('assp_options_group', 'assp_table_header');
-        unregister_setting('assp_options_group', 'assp_dead_time');
-        unregister_setting('assp_options_group', 'assp_table_group_filter');
-        unregister_setting('assp_options_group', 'assp_map_group_filter');
-        unregister_setting('assp_options_group', 'assp_map_zoom');
-        unregister_setting('assp_options_group', 'assp_map_center');
-        unregister_setting('assp_options_group', 'assp_aprs_is_filter_overlay');
     }
 
     public function register_settings()
     {
         register_setting('assp_options_group', 'assp_frontend_url');
         register_setting('assp_options_group', 'assp_api_key');
-        register_setting('assp_options_group', 'assp_table_header');
-        register_setting('assp_options_group', 'assp_dead_time');
-        register_setting('assp_options_group', 'assp_table_group_filter');
-        register_setting('assp_options_group', 'assp_map_group_filter');
-        register_setting('assp_options_group', 'assp_map_zoom');
-        register_setting('assp_options_group', 'assp_map_center');
-        register_setting('assp_options_group', 'assp_aprs_is_filter_overlay');
     }
 
     public function setting_page()
@@ -83,6 +62,26 @@ class APRS_Stations_Status_Plugin
     public function html_form()
     {
         ?>
+        <style>
+            .assp_table {
+                border: 1px solid #d3d3d3;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            .assp_table td, .assp_table th {
+                border: 1px solid #d3d3d3;
+                padding: 5px;
+                background-color: #fbfbfb;
+            }
+
+            .assp_shortcode {
+                padding: 24px 10px;
+                background-color: #fbfbfb;
+                font-size: 17px;
+                text-align: center
+            }
+        </style>
         <div class="wrap">
             <h2><?= __('Plugin Settings', 'aprs-stations-status-plugin'); ?></h2>
             <form method="post" action="options.php">
@@ -115,124 +114,187 @@ class APRS_Stations_Status_Plugin
                     </tr>
                 </table>
 
-                <h3><?= __('Table', 'aprs-stations-status-plugin'); ?></h3>
-                <table class="form-table">
-                    <tr>
-                        <th>
-                            <label for="assp_table_shortcode">
-                                <?= __('Shortcode', 'aprs-stations-status-plugin') . ":"; ?>
-                            </label>
-                        </th>
-                        <td>
-                            <input type='text' class="regular-text" id="assp_table_shortcode"
-                                   value="<?= "[aprs_stations_status_table]"; ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <label for="assp_table_header">
-                                <?= __('Table header', 'aprs-stations-status-plugin') . ":"; ?>
-                            </label>
-                        </th>
-                        <td>
-                            <input type='text' class="regular-text" id="assp_table_header" name="assp_table_header"
-                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> <?= __('APRS Stations Status', 'aprs-stations-status-plugin'); ?>"
-                                   value="<?= get_option('assp_table_header'); ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <label for="assp_dead_time">
-                                <?= __('Seconds level since last activity, appropriate for active station', 'aprs-stations-status-plugin') . ":"; ?>
-                            </label>
-                        </th>
-                        <td>
-                            <input type='text' class="regular-text" id="assp_dead_time" name="assp_dead_time"
-                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> 7200"
-                                   value="<?= get_option('assp_dead_time'); ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <label for="assp_table_group_filter">
-                                <?= __('Comma-separated list of groups to show (leave empty to disable this filtering)', 'aprs-stations-status-plugin') . ":"; ?>
-                            </label>
-                        </th>
-                        <td>
-                            <input type='text' class="regular-text" id="assp_table_group_filter"
-                                   name="assp_table_group_filter"
-                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> 1,2,3"
-                                   value="<?= get_option('assp_table_group_filter'); ?>">
-                        </td>
-                    </tr>
-                </table>
+                <h3><?= __('Table', 'aprs-stations-status-plugin') . ":"; ?></h3>
+                <div>
+                    <div class="assp_shortcode">
+                        [<b>aprs_stations_status_table</b>
+                        table_header="<i><?= __('APRS Stations Status', 'aprs-stations-status-plugin'); ?></i>"
+                        active_time_limit="<i>7200</i>"
+                        table_group_filter="<i>1,2,3</i>"]
+                    </div>
+                    <table class="assp_table">
+                        <tr>
+                            <th>
+                                <?= __('Attribute', 'aprs-stations-status-plugin'); ?>
+                            </th>
+                            <th>
+                                <?= __('Explanation', 'aprs-stations-status-plugin'); ?>
+                            </th>
+                            <th>
+                                <?= __('Mandatory?', 'aprs-stations-status-plugin'); ?>
+                            </th>
+                            <th>
+                                <?= __('Example', 'aprs-stations-status-plugin'); ?>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>table_header</i>
+                            </td>
+                            <td>
+                                <?= __('Table header', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                <?= __('No', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                <?= __('APRS Stations Status', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>active_time_limit</i>
+                            </td>
+                            <td>
+                                <?= __('Seconds level since last activity, appropriate for active station', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                <?= __('Yes', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                7200
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>table_group_filter</i>
+                            </td>
+                            <td>
+                                <?= __('Comma-separated list of groups to show', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                <?= __('Yes', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                1,2,3
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
-                <h3><?= __('Map', 'aprs-stations-status-plugin'); ?></h3>
-                <table class="form-table">
-                    <tr>
-                        <th>
-                            <label for="assp_map_shortcode">
-                                <?= __('Shortcode', 'aprs-stations-status-plugin') . ":"; ?>
-                            </label>
-                        </th>
-                        <td>
-                            <input type='text' class="regular-text" id="assp_map_shortcode"
-                                   value="<?= "[aprs_stations_status_map]"; ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <label for="assp_map_group_filter">
-                                <?= __('Comma-separated list of groups to show (leave empty to disable this filtering)', 'aprs-stations-status-plugin') . ":"; ?>
-                            </label>
-                        </th>
-                        <td>
-                            <input type='text' class="regular-text" id="assp_map_group_filter"
-                                   name="assp_map_group_filter"
-                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> 1,2,3"
-                                   value="<?= get_option('assp_map_group_filter'); ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <label for="assp_map_zoom">
-                                <?= __('Map Zoom', 'aprs-stations-status-plugin') . ":"; ?>
-                            </label>
-                        </th>
-                        <td>
-                            <input type='number' class="regular-text" id="assp_map_zoom"
-                                   name="assp_map_zoom"
-                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> 5"
-                                   value="<?= get_option('assp_map_zoom'); ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <label for="assp_map_center">
-                                <?= __('Map center (as JSON array [latitude, longitude])', 'aprs-stations-status-plugin') . ":"; ?>
-                            </label>
-                        </th>
-                        <td>
-                            <input type='text' class="regular-text" id="assp_map_center"
-                                   name="assp_map_center"
-                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> [49.35, 31.62]"
-                                   value="<?= get_option('assp_map_center'); ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <label for="assp_aprs_is_filter_overlay">
-                                <?= __('Add overlay of radius filtering, used at APRS-IS data collecting (leave empty to hide)', 'aprs-stations-status-plugin') . ":"; ?>
-                            </label>
-                        </th>
-                        <td>
-                            <input type='text' class="regular-text" id="assp_aprs_is_filter_overlay"
-                                   name="assp_aprs_is_filter_overlay"
-                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> r/49.7/25.35/284 r/49.44/31.5/368 r/48.81/37.79/202 r/47/32.46/388"
-                                   value="<?= get_option('assp_aprs_is_filter_overlay'); ?>">
-                        </td>
-                    </tr>
-                </table>
+                <h3><?= __('Map', 'aprs-stations-status-plugin') . ":"; ?></h3>
+                <div>
+                    <div class="assp_shortcode">
+                        [<b>aprs_stations_status_map</b>
+                        map_header="<i><?= __('APRS Stations Status', 'aprs-stations-status-plugin'); ?></i>"
+                        map_group_filter="<i>1,5,6,9</i>"
+                        map_height="<i>480</i>"
+                        map_zoom="<i>5</i>"
+                        map_center="<i>49.0139,31.2858</i>"
+                        aprs_is_filter_overlay="<i>r/49.7/25.35/284 r/49.44/31.5/368 r/48.81/37.79/202
+                            r/47/32.46/388</i>"]
+                    </div>
+                    <table class="assp_table">
+                        <tr>
+                            <th>
+                                <?= __('Attribute', 'aprs-stations-status-plugin'); ?>
+                            </th>
+                            <th>
+                                <?= __('Explanation', 'aprs-stations-status-plugin'); ?>
+                            </th>
+                            <th>
+                                <?= __('Mandatory?', 'aprs-stations-status-plugin'); ?>
+                            </th>
+                            <th>
+                                <?= __('Example', 'aprs-stations-status-plugin'); ?>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>map_header</i>
+                            </td>
+                            <td>
+                                <?= __('Map header', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                <?= __('No', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                <?= __('APRS Stations Status', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>map_group_filter</i>
+                            </td>
+                            <td>
+                                <?= __('Comma-separated list of groups to show', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                <?= __('Yes', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                1,5,6,9
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>map_height</i>
+                            </td>
+                            <td>
+                                <?= __('Map height (px)', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                <?= __('Yes', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                480
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>map_zoom</i>
+                            </td>
+                            <td>
+                                <?= __('Map zoom', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                <?= __('Yes', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                5
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>map_center</i>
+                            </td>
+                            <td>
+                                <?= __('Map center coordinates', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                <?= __('Yes', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                49.0139,31.2858
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>aprs_is_filter_overlay</i>
+                            </td>
+                            <td>
+                                <?= __('Add overlay of radius filtering, used at APRS-IS data collecting', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                <?= __('No', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                r/49.7/25.35/284 r/49.44/31.5/368 r/48.81/37.79/202 r/47/32.46/388
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
                 <?php submit_button(); ?>
 
@@ -240,8 +302,20 @@ class APRS_Stations_Status_Plugin
         <?php
     }
 
-    public function table_shortcode()
+    public function table_shortcode($attributes)
     {
+        $guid = substr(md5(mt_rand()), 0, 7);
+
+        $args = shortcode_atts(array(
+            'table_header' => '',
+            'active_time_limit' => 7200,
+            'table_group_filter' => ''
+        ), $attributes);
+
+        if (!$args['active_time_limit'] || !$args['table_group_filter']) {
+            return __('Missing mandatory attributes, check shortcode', 'aprs-stations-status-plugin');
+        }
+
         ob_start();
         ?>
         <style>
@@ -286,15 +360,15 @@ class APRS_Stations_Status_Plugin
         <div>
             <table class="assp_table">
                 <thead>
-                <?php if (get_option('assp_table_header')) { ?>
+                <?php if ($args['table_header']) { ?>
                     <tr>
                         <th colspan="4">
-                            <?= get_option('assp_table_header') ?>
+                            <?= $args['table_header']; ?>
                         </th>
                     </tr>
                 <?php } ?>
                 <tr>
-                    <td colspan="4" class="assp_text_right" id="assp_last_update">
+                    <td colspan="4" class="assp_text_right" id="assp_last_update_<?= $guid; ?>">
                         <?= __('Last update', 'aprs-stations-status-plugin') . ": " . __('Loading...', 'aprs-stations-status-plugin'); ?>
                     </td>
                 </tr>
@@ -313,7 +387,7 @@ class APRS_Stations_Status_Plugin
                     </th>
                 </tr>
                 </thead>
-                <tbody id="assp_table">
+                <tbody id="assp_table_<?= $guid; ?>">
                 <tr>
                     <td colspan="4">
                         <?= __('Loading...', 'aprs-stations-status-plugin'); ?>
@@ -325,11 +399,11 @@ class APRS_Stations_Status_Plugin
         <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/min/moment-with-locales.min.js"
                 integrity="sha256-QwcluVRoJ33LzMJ+COPYcydsAIJzcxCwsa0zA5JRGEc=" crossorigin="anonymous"></script>
         <script>
-            var assp_table_group_filter = JSON.parse("<?= json_encode(array_filter(array_map(function ($group) {
+            var assp_table_group_filter_<?= $guid; ?> = JSON.parse("<?= json_encode(array_filter(array_map(function ($group) {
                 return is_numeric($group) ? intval($group) : '';
-            }, explode(",", get_option('assp_table_group_filter'))))); ?>");
+            }, explode(",", $args['table_group_filter'])))); ?>");
 
-            function assp_table_reload_data() {
+            function assp_table_reload_data_<?= $guid; ?>() {
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("POST", "<?= admin_url('admin-ajax.php');?>", true);
                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
@@ -361,7 +435,7 @@ class APRS_Stations_Status_Plugin
                                         igate = path[0],
                                         q = path[1];
 
-                                    is_active = (<?= intval(get_option('assp_dead_time')); ?> > seconds_last_heard)
+                                    is_active = (<?= intval($args['active_time_limit']); ?> > seconds_last_heard)
                                     is_active_string = is_active ? "<?= __('Active', 'aprs-stations-status-plugin'); ?>" : "<?= __('Dead', 'aprs-stations-status-plugin'); ?>";
                                     last_activity_string = moment(date_last_activity).fromNow()
 
@@ -402,18 +476,18 @@ class APRS_Stations_Status_Plugin
                             });
                         });
 
-                        document.getElementById('assp_table').innerHTML = tbody;
-                        document.getElementById('assp_last_update').innerHTML = "<?= __('Last update', 'aprs-stations-status-plugin'); ?>: " + moment().format('lll');
+                        document.getElementById('assp_table_<?= $guid; ?>').innerHTML = tbody;
+                        document.getElementById('assp_last_update_<?= $guid; ?>').innerHTML = "<?= __('Last update', 'aprs-stations-status-plugin'); ?>: " + moment().format('lll');
                     }
                 };
-                xhttp.send("action=assp_data&get=status" + (assp_table_group_filter ? "&group=" + assp_table_group_filter.join(',') : ""));
+                xhttp.send("action=assp_data&get=status" + (assp_table_group_filter_<?= $guid; ?> ? "&group=" + assp_table_group_filter_<?= $guid; ?>.join(',') : ""));
             }
 
             document.addEventListener("DOMContentLoaded", function (event) {
                 moment.locale("<?=get_locale();?>");
 
-                assp_table_reload_data();
-                setInterval(assp_table_reload_data, 60000);
+                assp_table_reload_data_<?= $guid; ?>();
+                setInterval(assp_table_reload_data_<?= $guid; ?>, 60000);
             });
         </script>
         <?php
@@ -422,31 +496,51 @@ class APRS_Stations_Status_Plugin
         return $html;
     }
 
-    public function map_shortcode()
+    public function map_shortcode($attributes)
     {
+        $guid = substr(md5(mt_rand()), 0, 7);
+
+        $args = shortcode_atts(array(
+            'map_header' => '',
+            'map_height' => 480,
+            'map_group_filter' => '',
+            'map_zoom' => 5,
+            'map_center' => '',
+            'aprs_is_filter_overlay' => ''
+        ), $attributes);
+
+        if (!$args['map_group_filter'] || !$args['map_zoom'] || !$args['map_center'] || !$args['map_center']) {
+            return __('Missing mandatory attributes, check shortcode', 'aprs-stations-status-plugin');
+        }
+
         ob_start();
         ?>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
               integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
               crossorigin=""/>
         <style>
-            #assp_map {
-                height: 480px;
+            #assp_map_<?= $guid; ?> {
+                height: <?= intval($args['map_height']).'px'; ?>;
             }
 
             .assp_text_bold {
                 font-weight: bold;
             }
         </style>
-        <div id="assp_map"></div>
+        <?php if ($args['map_header']) { ?>
+            <h4>
+                <?= $args['map_header']; ?>
+            </h4>
+        <?php } ?>
+        <div id="assp_map_<?= $guid; ?>"></div>
         <script>
-            var assp_map,
-                assp_map_group_filter = JSON.parse("<?= json_encode(array_filter(array_map(function ($group) {
+            var assp_map_<?= $guid; ?>,
+                assp_map_group_filter_<?= $guid; ?> = JSON.parse("<?= json_encode(array_filter(array_map(function ($group) {
                     return is_numeric($group) ? intval($group) : '';
-                }, explode(",", get_option('assp_map_group_filter'))))); ?>"),
-                assp_map_markers = [];
+                }, explode(",", $args['map_group_filter'])))); ?>"),
+                assp_map_markers_<?= $guid; ?> = [];
 
-            function assp_map_reload_data() {
+            function assp_map_reload_data_<?= $guid; ?>() {
 
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("POST", "<?= admin_url('admin-ajax.php');?>", true);
@@ -456,10 +550,10 @@ class APRS_Stations_Status_Plugin
                         var json = JSON.parse(this.response),
                             marker;
 
-                        assp_map_markers.forEach(function (marker) {
-                            assp_map.removeLayer(marker);
+                        assp_map_markers_<?= $guid; ?>.forEach(function (marker) {
+                            assp_map_<?= $guid; ?>.removeLayer(marker);
                         });
-                        assp_map_markers = [];
+                        assp_map_markers_<?= $guid; ?> = [];
 
                         json.data.forEach(function (call_sign) {
                             if (call_sign.latitude && call_sign.longitude) {
@@ -475,27 +569,29 @@ class APRS_Stations_Status_Plugin
                                     icon: L.icon({
                                         iconUrl: img_url,
                                     })
-                                }).addTo(assp_map);
+                                }).addTo(assp_map_<?= $guid; ?>);
                                 marker.bindPopup('<div class="assp_text_bold">' + call_sign.call_sign + '</div>' +
                                     '<div>' + call_sign.group_title + '</div>');
-                                assp_map_markers.push(marker);
+                                assp_map_markers_<?= $guid; ?>.push(marker);
                             }
                         });
                     }
                 };
-                xhttp.send("action=assp_data&get=status" + (assp_map_group_filter ? "&group=" + assp_map_group_filter.join(',') : ""));
+                xhttp.send("action=assp_data&get=status" + (assp_map_group_filter_<?= $guid; ?> ? "&group=" + assp_map_group_filter_<?= $guid; ?>.join(',') : ""));
             }
 
             document.addEventListener("DOMContentLoaded", function (event) {
-                assp_map = L.map('assp_map').setView(JSON.parse("<?= json_encode(json_decode(get_option('assp_map_center'))); ?>"), <?= get_option('assp_map_zoom') && is_numeric(get_option('assp_map_zoom')) ? get_option('assp_map_zoom') : 5; ?>);
+                assp_map_<?= $guid; ?> = L.map('assp_map_<?= $guid; ?>').setView(JSON.parse("<?= json_encode(array_map(function ($float) {
+                    return floatval($float);
+                }, explode(",", $args['map_center']))); ?>"), <?= $args['map_zoom'] && is_numeric($args['map_zoom']) ? $args['map_zoom'] : 5; ?>);
 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '© OpenStreetMap'
-                }).addTo(assp_map);
+                }).addTo(assp_map_<?= $guid; ?>);
 
                 <?php
 
-                $aprs_is_filter_overlay = get_option('assp_aprs_is_filter_overlay');
+                $aprs_is_filter_overlay = $args['aprs_is_filter_overlay'];
                 if($aprs_is_filter_overlay) {
                     $circles = explode(" ", $aprs_is_filter_overlay);
                     if($circles && is_array($circles) && count($circles) > 0) {
@@ -508,8 +604,8 @@ class APRS_Stations_Status_Plugin
                                     stroke: false,
                                     fillColor: '#000000',
                                     fillOpacity: 0.08,
-                                    radius: <?= intval($circle_data[3])*1000; ?>
-                                }).addTo(assp_map);
+                                    radius: <?= intval($circle_data[3]) * 1000; ?>
+                                }).addTo(assp_map_<?= $guid; ?>);
                                 <?php
                             }
                         }
@@ -518,8 +614,8 @@ class APRS_Stations_Status_Plugin
 
                 ?>
 
-                assp_map_reload_data();
-                setInterval(assp_map_reload_data, 60000);
+                assp_map_reload_data_<?= $guid; ?>();
+                setInterval(assp_map_reload_data_<?= $guid; ?>, 60000);
             });
         </script>
         <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
