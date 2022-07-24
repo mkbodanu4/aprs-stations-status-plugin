@@ -18,10 +18,11 @@ class APRS_Stations_Status_Plugin
 
     public function init()
     {
-        add_shortcode('aprs_stations_status_table', array($this, 'shortcode'));
+        add_shortcode('aprs_stations_status_table', array($this, 'table_shortcode'));
+        add_shortcode('aprs_stations_status_map', array($this, 'map_shortcode'));
 
-        add_action('wp_ajax_assp_table', array($this, 'ajax_data'));
-        add_action('wp_ajax_nopriv_assp_table', array($this, 'ajax_data'));
+        add_action('wp_ajax_assp_data', array($this, 'ajax_data'));
+        add_action('wp_ajax_nopriv_assp_data', array($this, 'ajax_data'));
 
         add_action('admin_init', array($this, 'register_settings'));
         add_action('admin_menu', array($this, 'setting_page'));
@@ -39,12 +40,18 @@ class APRS_Stations_Status_Plugin
         delete_option('assp_table_header');
         delete_option('assp_dead_time');
         delete_option('assp_table_group_filter');
+        delete_option('assp_map_group_filter');
+        delete_option('assp_map_zoom');
+        delete_option('assp_map_center');
 
         unregister_setting('assp_options_group', 'assp_frontend_url');
         unregister_setting('assp_options_group', 'assp_api_key');
         unregister_setting('assp_options_group', 'assp_table_header');
         unregister_setting('assp_options_group', 'assp_dead_time');
         unregister_setting('assp_options_group', 'assp_table_group_filter');
+        unregister_setting('assp_options_group', 'assp_map_group_filter');
+        unregister_setting('assp_options_group', 'assp_map_zoom');
+        unregister_setting('assp_options_group', 'assp_map_center');
     }
 
     public function register_settings()
@@ -54,6 +61,9 @@ class APRS_Stations_Status_Plugin
         register_setting('assp_options_group', 'assp_table_header');
         register_setting('assp_options_group', 'assp_dead_time');
         register_setting('assp_options_group', 'assp_table_group_filter');
+        register_setting('assp_options_group', 'assp_map_group_filter');
+        register_setting('assp_options_group', 'assp_map_zoom');
+        register_setting('assp_options_group', 'assp_map_center');
     }
 
     public function setting_page()
@@ -106,12 +116,12 @@ class APRS_Stations_Status_Plugin
                 <table class="form-table">
                     <tr>
                         <th>
-                            <label for="assp_shortcode">
+                            <label for="assp_table_shortcode">
                                 <?= __('Shortcode', 'aprs-stations-status-plugin') . ":"; ?>
                             </label>
                         </th>
                         <td>
-                            <input type='text' class="regular-text" id="assp_shortcode"
+                            <input type='text' class="regular-text" id="assp_table_shortcode"
                                    value="<?= "[aprs_stations_status_table]"; ?>">
                         </td>
                     </tr>
@@ -154,13 +164,67 @@ class APRS_Stations_Status_Plugin
                     </tr>
                 </table>
 
+                <h3><?= __('Map', 'aprs-stations-status-plugin'); ?></h3>
+                <table class="form-table">
+                    <tr>
+                        <th>
+                            <label for="assp_map_shortcode">
+                                <?= __('Shortcode', 'aprs-stations-status-plugin') . ":"; ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input type='text' class="regular-text" id="assp_map_shortcode"
+                                   value="<?= "[aprs_stations_status_map]"; ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="assp_map_group_filter">
+                                <?= __('Comma-separated list of groups to show (leave empty to disable this filtering)', 'aprs-stations-status-plugin') . ":"; ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input type='text' class="regular-text" id="assp_map_group_filter"
+                                   name="assp_map_group_filter"
+                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> 1,2,3"
+                                   value="<?= get_option('assp_map_group_filter'); ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="assp_map_zoom">
+                                <?= __('Map Zoom', 'aprs-stations-status-plugin') . ":"; ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input type='number' class="regular-text" id="assp_map_zoom"
+                                   name="assp_map_zoom"
+                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> 5"
+                                   value="<?= get_option('assp_map_zoom'); ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="assp_map_center">
+                                <?= __('Map center (as JSON array [latitude, longitude])', 'aprs-stations-status-plugin') . ":"; ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input type='text' class="regular-text" id="assp_map_center"
+                                   name="assp_map_center"
+                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> [49.35, 31.62]"
+                                   value="<?= get_option('assp_map_center'); ?>">
+                        </td>
+                    </tr>
+                </table>
+
                 <?php submit_button(); ?>
 
         </div>
         <?php
     }
 
-    public function shortcode()
+    public function table_shortcode()
     {
         ob_start();
         ?>
@@ -245,9 +309,9 @@ class APRS_Stations_Status_Plugin
         <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/min/moment-with-locales.min.js"
                 integrity="sha256-QwcluVRoJ33LzMJ+COPYcydsAIJzcxCwsa0zA5JRGEc=" crossorigin="anonymous"></script>
         <script>
-            var assp_table_group_filter = JSON.parse("<?= json_encode(array_map(function ($group) {
-                return intval($group);
-            }, explode(",", get_option('assp_table_group_filter')))); ?>");
+            var assp_table_group_filter = JSON.parse("<?= json_encode(array_filter(array_map(function ($group) {
+                return is_numeric($group) ? intval($group) : '';
+            }, explode(",", get_option('assp_table_group_filter'))))); ?>");
 
             function assp_table_reload_data() {
                 var xhttp = new XMLHttpRequest();
@@ -326,7 +390,7 @@ class APRS_Stations_Status_Plugin
                         document.getElementById('assp_last_update').innerHTML = "<?= __('Last update', 'aprs-stations-status-plugin'); ?>: " + moment().format('lll');
                     }
                 };
-                xhttp.send("action=assp_table&get=status" + (assp_table_group_filter ? "&group=" + assp_table_group_filter.join(',') : ""));
+                xhttp.send("action=assp_data&get=status" + (assp_table_group_filter ? "&group=" + assp_table_group_filter.join(',') : ""));
             }
 
             document.addEventListener("DOMContentLoaded", function (event) {
@@ -336,6 +400,122 @@ class APRS_Stations_Status_Plugin
                 setInterval(assp_table_reload_data, 60000);
             });
         </script>
+        <?php
+        $html = ob_get_clean();
+
+        return $html;
+    }
+
+    public function map_shortcode()
+    {
+        ob_start();
+        ?>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+              integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+              crossorigin=""/>
+        <style>
+            #assp_map {
+                height: 480px;
+            }
+
+            .assp_text_bold {
+                font-weight: bold;
+            }
+        </style>
+        <div id="assp_map"></div>
+        <script>
+            var assp_map,
+                assp_map_group_filter = JSON.parse("<?= json_encode(array_filter(array_map(function ($group) {
+                    return is_numeric($group) ? intval($group) : '';
+                }, explode(",", get_option('assp_map_group_filter'))))); ?>"),
+                assp_map_markers = [];
+
+            function assp_map_reload_data() {
+
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("POST", "<?= admin_url('admin-ajax.php');?>", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        var json = JSON.parse(this.response),
+                            marker;
+
+                        assp_map_markers.forEach(function (marker) {
+                            assp_map.removeLayer(marker);
+                        });
+                        assp_map_markers = [];
+
+                        json.data.forEach(function (call_sign) {
+                            if (call_sign.latitude && call_sign.longitude) {
+                                var symbol = 47, symbol_table = 1;
+                                if (call_sign.symbol_table && call_sign.symbol) {
+                                    symbol_table = call_sign.symbol_table.charCodeAt(0);
+                                    symbol = call_sign.symbol.charCodeAt(0);
+                                }
+                                var img_url = '<?= plugin_dir_url(__FILE__); ?>symbols/symbol-' + symbol + '-' + symbol_table + '.svg';
+
+                                marker = L.marker([call_sign.latitude, call_sign.longitude], {
+                                    title: call_sign.call_sign,
+                                    icon: L.icon({
+                                        iconUrl: img_url,
+                                    })
+                                }).addTo(assp_map);
+                                marker.bindPopup('<div class="assp_text_bold">' + call_sign.call_sign + '</div>' +
+                                    '<div>' + call_sign.group_title + '</div>');
+                                assp_map_markers.push(marker);
+                            }
+                        });
+                    }
+                };
+                xhttp.send("action=assp_data&get=status" + (assp_map_group_filter ? "&group=" + assp_map_group_filter.join(',') : ""));
+            }
+
+            document.addEventListener("DOMContentLoaded", function (event) {
+                assp_map = L.map('assp_map').setView(JSON.parse("<?= json_encode(json_decode(get_option('assp_map_center'))); ?>"), <?= get_option('assp_map_zoom') && is_numeric(get_option('assp_map_zoom')) ? get_option('assp_map_zoom') : 5; ?>);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap'
+                }).addTo(assp_map);
+
+                var circle1 = L.circle([49.7, 25.35], {
+                    color: 'red',
+                    stroke: false,
+                    fillColor: '#000000',
+                    fillOpacity: 0.08,
+                    radius: 284000
+                }).addTo(assp_map);
+
+                var circle2 = L.circle([49.44, 31.5], {
+                    color: 'red',
+                    stroke: false,
+                    fillColor: '#000000',
+                    fillOpacity: 0.08,
+                    radius: 368000
+                }).addTo(assp_map);
+
+                var circle3 = L.circle([48.81, 37.79], {
+                    color: 'red',
+                    stroke: false,
+                    fillColor: '#000000',
+                    fillOpacity: 0.08,
+                    radius: 202000
+                }).addTo(assp_map);
+
+                var circle3 = L.circle([47.0, 32.46], {
+                    color: 'red',
+                    stroke: false,
+                    fillColor: '#000000',
+                    fillOpacity: 0.08,
+                    radius: 388000
+                }).addTo(assp_map);
+
+                assp_map_reload_data();
+                setInterval(assp_map_reload_data, 60000);
+            });
+        </script>
+        <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+                integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+                crossorigin=""></script>
         <?php
         $html = ob_get_clean();
 
