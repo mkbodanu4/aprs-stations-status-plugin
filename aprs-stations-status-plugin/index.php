@@ -43,6 +43,7 @@ class APRS_Stations_Status_Plugin
         delete_option('assp_map_group_filter');
         delete_option('assp_map_zoom');
         delete_option('assp_map_center');
+        delete_option('assp_aprs_is_filter_overlay');
 
         unregister_setting('assp_options_group', 'assp_frontend_url');
         unregister_setting('assp_options_group', 'assp_api_key');
@@ -52,6 +53,7 @@ class APRS_Stations_Status_Plugin
         unregister_setting('assp_options_group', 'assp_map_group_filter');
         unregister_setting('assp_options_group', 'assp_map_zoom');
         unregister_setting('assp_options_group', 'assp_map_center');
+        unregister_setting('assp_options_group', 'assp_aprs_is_filter_overlay');
     }
 
     public function register_settings()
@@ -64,6 +66,7 @@ class APRS_Stations_Status_Plugin
         register_setting('assp_options_group', 'assp_map_group_filter');
         register_setting('assp_options_group', 'assp_map_zoom');
         register_setting('assp_options_group', 'assp_map_center');
+        register_setting('assp_options_group', 'assp_aprs_is_filter_overlay');
     }
 
     public function setting_page()
@@ -214,6 +217,19 @@ class APRS_Stations_Status_Plugin
                                    name="assp_map_center"
                                    placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> [49.35, 31.62]"
                                    value="<?= get_option('assp_map_center'); ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="assp_aprs_is_filter_overlay">
+                                <?= __('Add overlay of radius filtering, used at APRS-IS data collecting (leave empty to hide)', 'aprs-stations-status-plugin') . ":"; ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input type='text' class="regular-text" id="assp_aprs_is_filter_overlay"
+                                   name="assp_aprs_is_filter_overlay"
+                                   placeholder="<?= __('E.g.', 'aprs-stations-status-plugin'); ?> r/49.7/25.35/284 r/49.44/31.5/368 r/48.81/37.79/202 r/47/32.46/388"
+                                   value="<?= get_option('assp_aprs_is_filter_overlay'); ?>">
                         </td>
                     </tr>
                 </table>
@@ -477,37 +493,30 @@ class APRS_Stations_Status_Plugin
                     attribution: '© OpenStreetMap'
                 }).addTo(assp_map);
 
-                var circle1 = L.circle([49.7, 25.35], {
-                    color: 'red',
-                    stroke: false,
-                    fillColor: '#000000',
-                    fillOpacity: 0.08,
-                    radius: 284000
-                }).addTo(assp_map);
+                <?php
 
-                var circle2 = L.circle([49.44, 31.5], {
-                    color: 'red',
-                    stroke: false,
-                    fillColor: '#000000',
-                    fillOpacity: 0.08,
-                    radius: 368000
-                }).addTo(assp_map);
+                $aprs_is_filter_overlay = get_option('assp_aprs_is_filter_overlay');
+                if($aprs_is_filter_overlay) {
+                    $circles = explode(" ", $aprs_is_filter_overlay);
+                    if($circles && is_array($circles) && count($circles) > 0) {
+                        foreach ($circles as $i => $circle) {
+                            $circle_data = explode("/", $circle);
+                            if(count($circle_data) === 4) {
+                                ?>
+                                var circle<?= $i; ?> = L.circle([<?= floatval($circle_data[1]); ?>, <?= floatval($circle_data[2]); ?>], {
+                                    color: '#000000',
+                                    stroke: false,
+                                    fillColor: '#000000',
+                                    fillOpacity: 0.08,
+                                    radius: <?= intval($circle_data[3])*1000; ?>
+                                }).addTo(assp_map);
+                                <?php
+                            }
+                        }
+                    }
+                }
 
-                var circle3 = L.circle([48.81, 37.79], {
-                    color: 'red',
-                    stroke: false,
-                    fillColor: '#000000',
-                    fillOpacity: 0.08,
-                    radius: 202000
-                }).addTo(assp_map);
-
-                var circle3 = L.circle([47.0, 32.46], {
-                    color: 'red',
-                    stroke: false,
-                    fillColor: '#000000',
-                    fillOpacity: 0.08,
-                    radius: 388000
-                }).addTo(assp_map);
+                ?>
 
                 assp_map_reload_data();
                 setInterval(assp_map_reload_data, 60000);
