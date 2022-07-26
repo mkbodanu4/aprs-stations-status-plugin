@@ -471,7 +471,7 @@ class APRS_Stations_Status_Plugin
                                 tbody += '<td>' + '<a href="https://aprs.fi/?call=' + call_sign.call_sign + '" target="_blank">' + img + call_sign.call_sign + '</a>' + '</td>';
                                 tbody += '<td>' + is_active_string + '</td>';
                                 tbody += '<td>' + last_activity_string + '</td>';
-                                tbody += '<td class="assp_info"><span title="' + call_sign.last_raw + '">' + type + action + '</span></td>';
+                                tbody += '<td class="assp_info"><span title="' + (call_sign.last_raw ? call_sign.last_raw.escapeHTML() : '') + '">' + type + action + '</span></td>';
                                 tbody += '</tr>';
                             });
                         });
@@ -481,6 +481,21 @@ class APRS_Stations_Status_Plugin
                     }
                 };
                 xhttp.send("action=assp_data&get=status" + (assp_table_group_filter_<?= $guid; ?> ? "&group=" + assp_table_group_filter_<?= $guid; ?>.join(',') : ""));
+            }
+
+            var __entityMap = {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': '&quot;',
+                "'": '&#39;',
+                "/": '&#x2F;'
+            };
+
+            String.prototype.escapeHTML = function() {
+                return String(this).replace(/[&<>"'\/]/g, function (s) {
+                    return __entityMap[s];
+                });
             }
 
             document.addEventListener("DOMContentLoaded", function (event) {
