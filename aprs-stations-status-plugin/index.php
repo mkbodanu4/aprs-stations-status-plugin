@@ -191,6 +191,7 @@ class APRS_Stations_Status_Plugin
                         map_height="<i>480</i>"
                         map_zoom="<i>5</i>"
                         map_center="<i>49.0139,31.2858</i>"
+                        open_popup="<i>Yes</i>"
                         aprs_is_filter_overlay="<i>r/49.7/25.35/284 r/49.44/31.5/368 r/48.81/37.79/202
                             r/47/32.46/388</i>"]
                     </div>
@@ -277,6 +278,20 @@ class APRS_Stations_Status_Plugin
                             </td>
                             <td>
                                 49.0139,31.2858
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>open_popup</i>
+                            </td>
+                            <td>
+                                <?= __('Automatically open all popups when map loaded, Yes or No', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                <?= __('No', 'aprs-stations-status-plugin'); ?>
+                            </td>
+                            <td>
+                                No
                             </td>
                         </tr>
                         <tr>
@@ -492,7 +507,7 @@ class APRS_Stations_Status_Plugin
                 "/": '&#x2F;'
             };
 
-            String.prototype.escapeHTML = function() {
+            String.prototype.escapeHTML = function () {
                 return String(this).replace(/[&<>"'\/]/g, function (s) {
                     return __entityMap[s];
                 });
@@ -521,6 +536,7 @@ class APRS_Stations_Status_Plugin
             'map_group_filter' => '',
             'map_zoom' => 5,
             'map_center' => '',
+            'open_popup' => 'No',
             'aprs_is_filter_overlay' => ''
         ), $attributes);
 
@@ -586,7 +602,7 @@ class APRS_Stations_Status_Plugin
                                     })
                                 }).addTo(assp_map_<?= $guid; ?>);
                                 marker.bindPopup('<div class="assp_text_bold">' + call_sign.call_sign + '</div>' +
-                                    '<div>' + call_sign.group_title + '</div>');
+                                    '<div>' + call_sign.group_title + '</div>')<?= strtolower($args['open_popup']) === "yes" ? ".openPopup()" : ""; ?>;
                                 assp_map_markers_<?= $guid; ?>.push(marker);
                             }
                         });
