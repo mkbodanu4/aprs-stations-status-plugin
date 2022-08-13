@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: APRS Stations Status Plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-23 13:00+0000\n"
-"PO-Revision-Date: 2022-07-29 19:02+0000\n"
+"PO-Revision-Date: 2022-08-13 11:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
@@ -39,6 +39,11 @@ msgstr "Add overlay of radius filtering, used at APRS-IS data collecting"
 msgid "API Key"
 msgstr "API Key"
 
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:89
+msgid "API Settings"
+msgstr "API Settings"
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:55
 #: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:121
 #: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:151
 #: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:189
@@ -46,18 +51,10 @@ msgstr "API Key"
 msgid "APRS Stations Status"
 msgstr "APRS Stations Status"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:89
-msgid "APRS Stations Status Monitor"
-msgstr "APRS Stations Status Monitor"
-
 #. Name of the plugin
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:55
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:86
 msgid "APRS Stations Status Plugin"
 msgstr "APRS Stations Status Plugin"
-
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:54
-msgid "APRS Stations Status Plugin Settings"
-msgstr "APRS Stations Status Plugin Settings"
 
 #: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:128
 #: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:201
@@ -170,7 +167,7 @@ msgstr "Object"
 msgid "over"
 msgstr "over"
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:86
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:54
 msgid "Plugin Settings"
 msgstr "Plugin Settings"
 
@@ -210,9 +207,8 @@ msgid "UR5WKM"
 msgstr "UR5WKM"
 
 #: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:94
-#| msgid "URL to APRS Stations Status Monitor API:"
-msgid "URL to APRS Stations Status Monitor Frontend"
-msgstr "URL to APRS Stations Status Monitor Frontend"
+msgid "URL"
+msgstr "URL"
 
 #: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:468
 msgid "WX"

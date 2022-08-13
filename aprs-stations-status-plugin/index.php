@@ -3,7 +3,7 @@
 Plugin Name:    APRS Stations Status Plugin
 Plugin URI:     https://github.com/mkbodanu4/aprs-stations-status-plugin
 Description:    Add APRS stations status in various forms to your WordPress site with shortcodes.
-Version:        1.0
+Version:        1.0.1
 Author:         UR5WKM
 Author URI:     https://diy.manko.pro
 Text Domain:    aprs-stations-status-plugin
@@ -51,8 +51,8 @@ class APRS_Stations_Status_Plugin
     public function setting_page()
     {
         add_options_page(
-            __('APRS Stations Status Plugin Settings', 'aprs-stations-status-plugin'),
-            __('APRS Stations Status Plugin', 'aprs-stations-status-plugin'),
+            __('Plugin Settings', 'aprs-stations-status-plugin'),
+            __('APRS Stations Status', 'aprs-stations-status-plugin'),
             'manage_options',
             'assp-setting',
             array($this, 'html_form')
@@ -83,15 +83,15 @@ class APRS_Stations_Status_Plugin
             }
         </style>
         <div class="wrap">
-            <h2><?= __('Plugin Settings', 'aprs-stations-status-plugin'); ?></h2>
+            <h2><?= __('APRS Stations Status Plugin', 'aprs-stations-status-plugin'); ?></h2>
             <form method="post" action="options.php">
                 <?php settings_fields('assp_options_group'); ?>
-                <h3><?= __('APRS Stations Status Monitor', 'aprs-stations-status-plugin'); ?></h3>
+                <h3><?= __('API Settings', 'aprs-stations-status-plugin'); ?></h3>
                 <table class="form-table">
                     <tr>
                         <th>
                             <label for="assp_frontend_url">
-                                <?= __('URL to APRS Stations Status Monitor Frontend', 'aprs-stations-status-plugin') . ":"; ?>
+                                <?= __('URL', 'aprs-stations-status-plugin') . ":"; ?>
                             </label>
                         </th>
                         <td>
@@ -617,7 +617,7 @@ class APRS_Stations_Status_Plugin
                 }, explode(",", $args['map_center']))); ?>"), <?= $args['map_zoom'] && is_numeric($args['map_zoom']) ? $args['map_zoom'] : 5; ?>);
 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap'
+                    attribution: '© <a target="_blank" href="https://diy.manko.pro">UR5WKM</a> | © <a target="_blank" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                 }).addTo(assp_map_<?= $guid; ?>);
 
                 <?php

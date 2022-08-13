@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: APRS Stations Status Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-29 19:01+0000\n"
+"POT-Creation-Date: 2022-08-13 11:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -38,6 +38,11 @@ msgstr ""
 msgid "API Key"
 msgstr ""
 
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:89
+msgid "API Settings"
+msgstr ""
+
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:55
 #: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:121
 #: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:151
 #: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:189
@@ -45,17 +50,9 @@ msgstr ""
 msgid "APRS Stations Status"
 msgstr ""
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:89
-msgid "APRS Stations Status Monitor"
-msgstr ""
-
 #. Name of the plugin
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:55
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:86
 msgid "APRS Stations Status Plugin"
-msgstr ""
-
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:54
-msgid "APRS Stations Status Plugin Settings"
 msgstr ""
 
 #: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:128
@@ -167,7 +164,7 @@ msgstr ""
 msgid "over"
 msgstr ""
 
-#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:86
+#: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:54
 msgid "Plugin Settings"
 msgstr ""
 
@@ -205,7 +202,7 @@ msgid "UR5WKM"
 msgstr ""
 
 #: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:94
-msgid "URL to APRS Stations Status Monitor Frontend"
+msgid "URL"
 msgstr ""
 
 #: ../../../../aprs-stations-status-plugin/aprs-stations-status-plugin/index.php:468
